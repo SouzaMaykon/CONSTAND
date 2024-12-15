@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novo Cadastro</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #1a3d6d, #4a90e2);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      width: 400px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #4a90e2;
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #367bbd;
+    }
+
+    .message {
+      color: #00ff00;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Novo Cadastro</h1>
+    <form id="formCadastro">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+      <label for="idade">Idade:</label>
+      <input type="number" id="idade" placeholder="Digite sua idade" required>
+
+      <label for="sexo">Sexo:</label>
+      <select id="sexo" required>
+        <option value="" disabled selected>Selecione</option>
+        <option value="M">Masculino</option>
+        <option value="F">Feminino</option>
+      </select>
+
+      <label for="funcao">Função Voluntária:</label>
+      <input type="text" id="funcao" placeholder="Digite a função desejada" required>
+
+      <button type="button" class="btn" id="btnCadastrar">Cadastrar</button>
+    </form>
+    <button class="btn" onclick="window.location.href='index.html'">Voltar</button>
+    <p class="message" id="mensagem"></p>
+  </div>
+
+  <script>
+    document.getElementById("btnCadastrar").addEventListener("click", function () {
+      const nome = document.getElementById("nome").value.trim();
+      const idade = document.getElementById("idade").value.trim();
+      const sexo = document.getElementById("sexo").value;
+      const funcao = document.getElementById("funcao").value.trim();
+
+      if (!nome || !idade || !sexo || !funcao) {
+        alert("Por favor, preencha todos os campos!");
+        return;
+      }
+
+      const usuario = { nome, idade, sexo, funcao };
+
+      let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+      usuarios.push(usuario);
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+      document.getElementById("mensagem").textContent = "Usuário cadastrado com sucesso!";
+      document.getElementById("formCadastro").reset();
+
+      setTimeout(() => {
+        document.getElementById("mensagem").textContent = "";
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

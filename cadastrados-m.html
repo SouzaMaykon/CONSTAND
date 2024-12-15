@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastrados Masculinos</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background-color: #4a90e2;
+      color: white;
+      text-align: left;
+    }
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cadastrados Masculinos</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Função</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="listaMasculino"></tbody>
+  </table>
+  <button onclick="window.location.href='index.html'">Voltar</button>
+  <script>
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const lista = document.getElementById("listaMasculino");
+
+    if (usuarios.length === 0 || !usuarios.some(user => user.sexo === "M")) {
+      lista.innerHTML = '<tr><td colspan="4">Nenhum cadastro encontrado.</td></tr>';
+    } else {
+      usuarios.filter(user => user.sexo === "M").forEach((user, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${user.nome}</td>
+          <td>${user.idade}</td>
+          <td>${user.funcao}</td>
+          <td>
+            <button onclick="editarUsuario(${index})">Editar</button>
+            <button onclick="excluirUsuario(${index})">Excluir</button>
+          </td>
+        `;
+        lista.appendChild(row);
+      });
+    }
+
+    function editarUsuario(index) {
+      const nome = prompt("Atualize o nome:", usuarios[index].nome);
+      const idade = prompt("Atualize a idade:", usuarios[index].idade);
+      const funcao = prompt("Atualize a função:", usuarios[index].funcao);
+
+      if (nome && idade && funcao) {
+        usuarios[index].nome = nome;
+        usuarios[index].idade = idade;
+        usuarios[index].funcao = funcao;
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        location.reload();
+      }
+    }
+
+    function excluirUsuario(index) {
+      if (confirm("Tem certeza que deseja excluir este usuário?")) {
+        usuarios.splice(index, 1);
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        location.reload();
+      }
+    }
+  </script>
+</body>
+</html>

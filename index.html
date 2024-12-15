@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Inicial</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background-image: url('https://i.imgur.com/fnrBSwo.jpeg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.6); /* Fundo semitransparente */
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    button {
+      display: block;
+      width: 200px;
+      padding: 10px;
+      margin: 10px auto;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #4a90e2;
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #367bbd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bem-vindo ao Sistema</h1>
+    <button onclick="window.location.href='novo-cadastro.html'">Novo Cadastro</button>
+    <button onclick="window.location.href='cadastrados-m.html'">Cadastrados Masculinos</button>
+    <button onclick="window.location.href='cadastrados-f.html'">Cadastrados Femininos</button>
+  </div>
+</body>
+</html>
